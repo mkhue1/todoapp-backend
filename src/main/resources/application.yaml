@@ -1,0 +1,17 @@
+spring:
+  application:
+    name:
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/todo
+    username: root
+    password: Star2911
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+
