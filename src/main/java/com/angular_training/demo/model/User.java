@@ -20,6 +20,4 @@ public class User {
     private String password;
     @Column()
     private String role;
-    @Column()
-    private boolean enabled = true;
 }

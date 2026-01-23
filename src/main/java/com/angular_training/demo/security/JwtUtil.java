@@ -10,20 +10,22 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private final String SECRET = "MY_SECRET_KEY_123456_MY_SECRET_KEY";
+    // demo thôi, thực tế nên để trong config/env
+    private final String SECRET = "MY_SUPER_SECRET_KEY_123456_MY_SUPER_SECRET_KEY";
 
-    private final long EXPIRATION_MS = 1000 * 60 * 60;
+    private final long EXPIRATION_MS = 1000 * 60 * 60; // 1h
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET.getBytes());
     }
 
-    public String generateToken(String username) {
+    public String generateToken(String username, String role) {
         Date now = new Date();
         Date expiry = new Date(now.getTime() + EXPIRATION_MS);
 
         return Jwts.builder()
                 .setSubject(username)
+                .claim("role", role)
                 .setIssuedAt(now)
                 .setExpiration(expiry)
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
@@ -32,6 +34,10 @@ public class JwtUtil {
 
     public String extractUsername(String token) {
         return getClaims(token).getSubject();
+    }
+
+    public String extractRole(String token) {
+        return getClaims(token).get("role", String.class);
     }
 
     public boolean isExpired(String token) {

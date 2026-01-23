@@ -40,6 +40,8 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
         );
 
+        http.authenticationProvider(daoAuthenticationProvider());
+
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

@@ -1,6 +1,5 @@
 package com.angular_training.demo.security;
 
-
 import com.angular_training.demo.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,7 +21,6 @@ public class CustomUserDetails implements UserDetails {
         return List.of(new SimpleGrantedAuthority(user.getRole()));
     }
 
-
     @Override
     public String getPassword() { return user.getPassword(); }
 
@@ -38,7 +36,4 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() { return true; }
 
-    @Override
-    public boolean isEnabled() { return user.isEnabled(); }
 }
-

@@ -35,7 +35,6 @@ public class AuthController {
                 .username(req.getUsername())
                 .password(passwordEncoder.encode(req.getPassword()))
                 .role("ROLE_USER")
-                .enabled(true)
                 .build();
 
         userRepository.save(user);
@@ -57,7 +56,7 @@ public class AuthController {
         User user = userRepository.findByUsername(req.getUsername())
                 .orElseThrow(); // chắc chắn tồn tại vì authenticate đã pass
 
-        String token = jwtUtil.generateToken(user.getUsername());
+        String token = jwtUtil.generateToken(user.getUsername(), user.getRole());
 
         return ResponseEntity.ok(Map.of("accessToken", token));
     }
