@@ -8,7 +8,6 @@ import java.time.LocalDate;
 public class TodoItem{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
     private Long id;
     @Column(name = "TITLE")
     private String title;
