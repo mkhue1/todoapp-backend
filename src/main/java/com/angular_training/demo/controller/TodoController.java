@@ -1,6 +1,7 @@
 package com.angular_training.demo.controller;
 
 import com.angular_training.demo.repository.TodoItemRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,16 +20,19 @@ public class TodoController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public List<TodoItem> findall() {
         return todoItemRepository.findAll();
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public TodoItem save(@RequestBody TodoItem todoItem) {
         return todoItemRepository.save(todoItem);
     }
 
     @PutMapping(value = "/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public TodoItem update(@PathVariable Long id, @RequestBody TodoItem todoItem) {
         TodoItem existing = todoItemRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Todo not found"));
@@ -42,7 +46,9 @@ public class TodoController {
     }
 
     @DeleteMapping(value = "/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public void delete(@PathVariable Long id) {
         todoItemRepository.deleteById(id);
     }
+
 }

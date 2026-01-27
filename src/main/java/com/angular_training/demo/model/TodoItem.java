@@ -1,21 +1,30 @@
 package com.angular_training.demo.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "todo_items")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class TodoItem{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "TITLE")
+    @Column()
     private String title;
-    @Column(name = "COMPLETED")
+    @Column()
     private boolean completed;
-    @Column(name = "DATE")
+    @Column()
     private LocalDate date;
-    @Column(name = "PRIORITY")
+    @Column()
     @Enumerated(EnumType.STRING)
     private Priority priority;
 
@@ -23,53 +32,5 @@ public class TodoItem{
         LOW,
         MEDIUM,
         HIGH
-    }
-    public TodoItem() {}
-
-    public TodoItem(String title, boolean completed, LocalDate date, Priority priority) {
-        this.title = title;
-        this.completed = completed;
-        this.date = date;
-        this.priority = priority;
-    }
-    // getters & setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public boolean isCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public Priority getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Priority priority) {
-        this.priority = priority;
     }
 }

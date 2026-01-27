@@ -19,5 +19,11 @@ public class User {
     @Column()
     private String password;
     @Column()
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    public enum Role {
+        ROLE_ADMIN,
+        ROLE_USER
+    }
 }

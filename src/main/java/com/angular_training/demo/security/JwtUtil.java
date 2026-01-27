@@ -1,5 +1,6 @@
 package com.angular_training.demo.security;
 
+import com.angular_training.demo.model.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
@@ -19,13 +20,13 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(SECRET.getBytes());
     }
 
-    public String generateToken(String username, String role) {
+    public String generateToken(String username, User.Role role) {
         Date now = new Date();
         Date expiry = new Date(now.getTime() + EXPIRATION_MS);
 
         return Jwts.builder()
                 .setSubject(username)
-                .claim("role", role)
+                .claim("role", role.name())
                 .setIssuedAt(now)
                 .setExpiration(expiry)
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)

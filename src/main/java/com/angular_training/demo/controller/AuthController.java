@@ -11,6 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Map;
 
+import static com.angular_training.demo.model.User.Role.ROLE_ADMIN;
+import static com.angular_training.demo.model.User.Role.ROLE_USER;
+
 
 @RestController
 @RequestMapping("/auth")
@@ -35,12 +38,13 @@ public class AuthController {
         User user = User.builder()
                 .username(req.getUsername())
                 .password(passwordEncoder.encode(req.getPassword()))
-                .role("ROLE_USER")
+                .role(ROLE_USER)
                 .build();
 
         userRepository.save(user);
+        String token = jwtUtil.generateToken(user.getUsername(), user.getRole());
 
-        return ResponseEntity.ok("Đăng ký thành công");
+        return ResponseEntity.ok(Map.of("accessToken", token));
     }
 
     @PostMapping("/login")
@@ -61,4 +65,6 @@ public class AuthController {
 
         return ResponseEntity.ok(Map.of("accessToken", token));
     }
+
+
 }
