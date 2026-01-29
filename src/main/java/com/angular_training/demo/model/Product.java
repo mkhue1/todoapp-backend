@@ -24,4 +24,7 @@ public class Product {
     private int quantity;
     @Column
     private String description;
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
+    private String image;
 }

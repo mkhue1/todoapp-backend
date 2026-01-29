@@ -39,6 +39,7 @@ public class ProductController {
         existing.setPrice(product.getPrice());
         existing.setQuantity(product.getQuantity());
         existing.setDescription(product.getDescription());
+        existing.setImage(product.getImage());
 
         return productRepository.save(existing);
     }
