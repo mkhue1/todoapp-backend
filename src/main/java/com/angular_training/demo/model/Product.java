@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "product")
 @Setter
@@ -18,8 +20,8 @@ public class Product {
     private Long id;
     @Column(nullable = false)
     private String productName;
-    @Column(nullable = false)
-    private int price;
+    @Column(nullable = false, precision = 15, scale = 2)
+    private BigDecimal price;
     @Column(nullable = false)
     private int quantity;
     @Column
